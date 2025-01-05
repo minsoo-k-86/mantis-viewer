@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.messier219.mantis_viewer.bug.BugMapper">
+
+    <!-- 벅스 전체 조회 -->
+    <select id="findAll" resultType="com.messier219.mantis_viewer.bug.Bug">
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY b.id) AS `row_number`,
+            p.`name` AS project_name,
+            c.`name` AS category_name,
+            b.summary,
+            b.`status`,
+            reporter.username AS reporter_id,
+            reporter.realname AS reporter_name,
+            `handler`.username AS handler_id,
+            `handler`.realname AS handler_name,
+            FROM_UNIXTIME(b.date_submitted) AS date_submitted
+        FROM
+            bugtracker.mantis_bug_table AS b
+        INNER JOIN
+            bugtracker.mantis_user_table AS reporter
+        INNER JOIN
+            bugtracker.mantis_category_table AS c
+        INNER JOIN
+            bugtracker.mantis_project_table AS p
+        LEFT OUTER JOIN
+            bugtracker.mantis_user_table AS `handler`
+        ON
+            b.handler_id = `handler`.id
+        WHERE
+            b.reporter_id = reporter.id
+            AND b.category_id = c.id
+            AND b.project_id = p.id
+    </select>
+
+</mapper>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantis Viewer</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+    {{>layout/header}}
+
+    <div class="container-fluid">
+
+        <h2>벅스 리스트 (잔여 전체)</h2>
+
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col" style="width: 70px;">#</th>
+                    <th scope="col" style="width: 120px;">프로젝트</th>
+                    <th scope="col" style="width: 120px;">카테고리</th>
+                    <th scope="col" style="min-width: 200px;">제목</th>
+                    <th scope="col" style="width: 90px;">상태</th>
+                    <th scope="col" style="width: 120px;">보고자 ID</th>
+                    <th scope="col" style="width: 120px;">보고자 이름</th>
+                    <th scope="col" style="width: 120px;">담당자 ID</th>
+                    <th scope="col" style="width: 120px;">담당자 이름</th>
+                    <th scope="col" style="width: 200px;">등록일시</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#bugs}}
+                <tr>
+                    <td>{{rowNumber}}</td>
+                    <td>{{projectName}}</td>
+                    <td>{{categoryName}}</td>
+                    <td>{{summary}}</td>
+                    <td>{{status}}</td>
+                    <td>{{reporterId}}</td>
+                    <td>{{reporterName}}</td>
+                    <td>{{handlerId}}</td>
+                    <td>{{handlerName}}</td>
+                    <td>{{dateSubmitted}}</td>
+                </tr>
+                {{/bugs}}
+            </tbody>
+        </table>
+
+    </div>
+
+    {{>layout/footer}}
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
