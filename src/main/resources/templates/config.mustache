@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantis Viewer</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body onload="onLoad()">
+
+    {{>layout/header}}
+
+    <div class="container-fluid">
+
+        <h2>설정</h2>
+
+        <form onsubmit="onSubmit(event)">
+            <div class="mb-3">
+                <label for="targetId" class="form-label">조회 담당자 ID</label>
+                <input type="text" class="form-control" id="targetId" aria-describedby="targetIdHelp">
+                <div id="targetIdHelp" class="form-text">버그를 조회할 담당자 ID를 콤마로 구분해서 입력하세요.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">저장</button>
+            <button type="button" class="btn btn-danger" onclick="resetConfig()">초기화</button>
+        </form>
+
+    </div>
+
+    <script>
+        function onLoad() {
+            const targetId = getCookie('targetId');
+            if(!targetId){
+                return;
+            }
+            document.getElementById('targetId').value = targetId;
+        }
+
+        function onSubmit(event) {
+            console.log('onSubmit');
+            event.preventDefault(); // 기본 동작 방지
+            const targetId = document.getElementById('targetId').value;
+            setCookie('targetId', targetId, 365);
+            alert('저장했습니다.');
+        }
+
+        function resetConfig() {
+            console.log('resetConfig');
+            const pass = window.confirm('설정을 초기화 하시겠습니까?')
+            if(!pass){
+                return;
+            }
+            document.getElementById('targetId').value = '';
+            deleteCookie('targetId');
+            alert('초기화되었습니다.');
+        }
+    </script>
+
+    {{>layout/footer}}
+</body>
+</html>

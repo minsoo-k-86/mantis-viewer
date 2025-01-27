@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 벅스 조회 컨트롤러
+ * 버그 조회 컨트롤러
  * @author messier219
  */
 @Controller
@@ -19,13 +19,24 @@ public class BugController {
     private final BugService bugService;
 
     /**
-     * 벅스 리스트 조회
+     * 버그 리스트 조회
      * @param model 모델
-     * @return bugs
+     * @return bugs 버그 리스트
      */
-    @GetMapping("/bugs")
+    @GetMapping("/")
     public String getBugs(Model model) {
         model.addAttribute("bugs", bugService.getBugs());
         return "bugs";
+    }
+
+    /**
+     * 환경설정 (쿠키기반)
+     * @param model 모델
+     * @return 환경설정 페이지
+     */
+    @GetMapping("/config")
+    public String config(Model model) {
+        model.addAttribute("config");
+        return "config";
     }
 }

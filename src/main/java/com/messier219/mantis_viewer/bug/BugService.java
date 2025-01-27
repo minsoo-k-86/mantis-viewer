@@ -23,6 +23,7 @@ public class BugService {
      */
     @Transactional(rollbackFor = Exception.class)
     public List<Bug> getBugs() {
+
         List<Bug> bugList = bugMapper.findAll();
 
         for (Bug bug : bugList) {

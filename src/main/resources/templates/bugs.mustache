@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
+<body onload="onLoad()">
 
     {{>layout/header}}
 
@@ -30,19 +30,27 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- 조회한 데이터가 없을 경우 없음 표시 -->
+                {{^bugs}}
+                    <tr>
+                       <td colspan="10" class="text-center">없음</td>
+                    </tr>
+                {{/bugs}}
+
+                <!-- 조회한 벅스를 표시 -->
                 {{#bugs}}
-                <tr>
-                    <td>{{rowNumber}}</td>
-                    <td>{{projectName}}</td>
-                    <td>{{categoryName}}</td>
-                    <td>{{summary}}</td>
-                    <td>{{status}}</td>
-                    <td>{{reporterId}}</td>
-                    <td>{{reporterName}}</td>
-                    <td>{{handlerId}}</td>
-                    <td>{{handlerName}}</td>
-                    <td>{{dateSubmitted}}</td>
-                </tr>
+                    <tr>
+                        <td>{{rowNumber}}</td>
+                        <td>{{projectName}}</td>
+                        <td>{{categoryName}}</td>
+                        <td>{{summary}}</td>
+                        <td>{{status}}</td>
+                        <td>{{reporterId}}</td>
+                        <td>{{reporterName}}</td>
+                        <td>{{handlerId}}</td>
+                        <td>{{handlerName}}</td>
+                        <td>{{dateSubmitted}}</td>
+                    </tr>
                 {{/bugs}}
             </tbody>
         </table>
@@ -51,6 +59,14 @@
 
     {{>layout/footer}}
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function onLoad() {
+            const targetId = getCookie('targetId');
+            if(!targetId){
+                alert('조회할 담당자 ID를 설정하세요');
+                location.href = '/config';
+            }
+        }
+    </script>
 </body>
 </html>
